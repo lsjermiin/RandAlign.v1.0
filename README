@@ -18,7 +18,7 @@ CONTACT     lars.jermiin@anu.edu.au
 
 DATE        19 April 2019
 
-PURPOSE     RandAlign reads a multiple sequence alignment, shuffles the content across:
+PURPOSE     RandAlign reads a multiple sequence alignment and then shuffles the content across:
 
               1. sites within each sequence [retains entropy of each sequence];
               2. sequences within each site [retains entropy of each site];
