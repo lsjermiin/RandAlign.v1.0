@@ -1,0 +1,39 @@
+NOTES REGARDING SOFTWARE
+
+NAME        RandAlign
+
+VERSION     1.0
+
+COPYRIGHT   Copyright © 2019 Lars Sommer Jermiin. All rights reserved.
+
+WARNING     The copyright holder takes no legal responsibility for the correctness of 
+            results obtained using this program.
+
+AUTHOR      Lars Sommer Jermiin
+
+ADDRESS     Australian National University
+            University College Dublin            
+
+CONTACT     lars.jermiin@anu.edu.au
+
+DATE        19 April 2019
+
+PURPOSE     RandAlign reads a multiple sequence alignment, shuffles the content across:
+
+              1. sites within each sequence [retains entropy of each sequence];
+              2. sequences within each site [retains entropy of each site];
+              3. sites as well as sequences.
+              
+            The resulting two alignments are printed to two files.
+ 
+FORMAT      Sequences must be stored in the FASTA format.
+ 
+DATA TYPES  nucleotides, 10-state genotypes, 14-state genotypes and amino acids.
+
+COMPILE     g++ randalign.cpp -o randalign -O2 -Wall
+
+HELP        Simply type randalign in the command line
+
+STATUS      Software incomplete
+
+NOTE        Contact author for updates, etc
