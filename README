@@ -16,24 +16,27 @@ ADDRESS     Australian National University
 
 CONTACT     lars.jermiin@anu.edu.au
 
-DATE        19 April 2019
+DATE        10 September 2019
 
-PURPOSE     RandAlign reads a multiple sequence alignment and then shuffles the content across:
+PURPOSE     RandAlign reads a multiple sequence alignment, shuffles the content across:
 
               1. sites within each sequence [retains entropy of each sequence];
               2. sequences within each site [retains entropy of each site];
               3. sites as well as sequences.
               
+            All sites or variant sites are considered.
+
             The resulting two alignments are printed to two files.
  
 FORMAT      Sequences must be stored in the FASTA format.
  
-DATA TYPES  nucleotides, 10-state genotypes, 14-state genotypes and amino acids.
+DATA TYPES  Nucleotides, di-nucleotides, codons, 10-state genotypes, 14-state genotypes 
+            and amino acids.
 
-COMPILE     g++ randalign.cpp -o randalign -O2 -Wall
+COMPILE     g++ randalign.cpp -o randalign -O3 -Wall
 
 HELP        Simply type randalign in the command line
 
-STATUS      Software incomplete
+STATUS      Software complete
 
 NOTE        Contact author for updates, etc
