@@ -15,8 +15,9 @@ ADDRESS     Australian National University
             University College Dublin            
 
 CONTACT     lars.jermiin@anu.edu.au
+            lars.jermiin@ucd.ie
 
-DATE        10 September 2019
+DATE        13 June 2022
 
 PURPOSE     RandAlign reads a multiple sequence alignment, shuffles the content across:
 
@@ -26,7 +27,7 @@ PURPOSE     RandAlign reads a multiple sequence alignment, shuffles the content 
               
             All sites or variant sites are considered.
 
-            The resulting two alignments are printed to two files.
+            The resulting alignments are printed to two files.
  
 FORMAT      Sequences must be stored in the FASTA format.
  

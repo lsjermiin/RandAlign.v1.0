@@ -15,9 +15,9 @@
  
  Date begun       : 12 November, 2018
  
- Date modified    : 10 September, 2019
+ Date modified    : 13 June, 2022
  
- Copyright        : Copyright © 2019 Lars Sommer Jermiin. All rights reserved.
+ Copyright        : Copyright © 2018-22 Lars Sommer Jermiin. All rights reserved.
  
  Responsibility   : The copyright holder takes no legal responsibility for
                     the correctness of results obtained using this program.
@@ -43,8 +43,13 @@
  Output           : Sequences will be saved in the FASTA or sequential PHYLIP
                     formats.
  
- Reference        : Jermiin et al. (2019) ...
+ Modifications    : 13-06-22 Included code to remove blank spaces in sequences
+                    (some FASTA files contain unnecessary blank spaces in the
+                    sequences).
  
+ Reference        : Jermiin LS, Misof B. (2022) Quantifying the historical
+                    signal in phylogenetic data. In prep.
+
  --------------------------------------------------------------------------*/
 
 #include <string>
@@ -467,7 +472,7 @@ std::string Back_translator(unsigned datatype, std::vector<unsigned> seq_data) {
 unsigned long Read_Input(std::string inname, unsigned datatype){
     unsigned long alignment_length(0);
     unsigned long counter(0);
-    std::string seq(""), str(""); // temporary string used to store input
+    std::string seq(""), str(""), tmp(""); // temporary string used to store input
     std::vector<unsigned> sequence;    // temporary vector used to store input
     std::ifstream infile;
     
@@ -478,15 +483,22 @@ unsigned long Read_Input(std::string inname, unsigned datatype){
     }
     while (getline(infile, str)) {
         if (!str.empty()) {
-            if (str[0] == '>') {
+            // remove blank space in string
+            tmp.clear();
+            for (std::string::size_type i = 0; i != str.size(); ++i) {
+                if (!isblank(str[i])) {
+                    tmp.push_back(str[i]);
+                }
+            }
+            if (tmp[0] == '>') {
                 if (seq.size() > 0) {
-                    if (datatype == 2) {
+                    if (datatype > 14 && datatype < 18) {
                         if (seq.size() % 2 != 0) {
                             std::cerr << "\nERROR: expected sequence of di-nucleotides" << "\n" << std::endl;
                             exit(1);
                         }
                     }
-                    if (datatype == 3) {
+                    if (datatype > 17 && datatype < 28) {
                         if (seq.size() % 3 != 0) {
                             std::cerr << "\nERROR: expected sequence of codons" << "\n" << std::endl;
                             exit(1);
@@ -499,12 +511,12 @@ unsigned long Read_Input(std::string inname, unsigned datatype){
                     sequence.clear();
                     seq.clear();
                 }
-                str.erase(str.begin()); // removes first character from name
-                taxon.push_back(str); // stores sequence name in vector
-                str.clear();
+                tmp.erase(tmp.begin()); // removes first character from name
+                taxon.push_back(tmp); // stores sequence name in vector
             } else {
-                seq += str;
+                seq += tmp;
             }
+            str.clear();
         }
     }
     // Store last sequence in vector
@@ -528,6 +540,7 @@ unsigned long Read_Input(std::string inname, unsigned datatype){
     for (std::vector<std::vector<unsigned> >::const_iterator iter = alignment.begin()+1; iter != alignment.end(); ++iter) {
         ++counter;
         sequence = *iter;
+//        std::cerr << counter << " " << sequence.size() << std::endl;
         if (sequence.size() != alignment_length) {
             std::cerr << "\nERROR: sequences 1 and " << counter << " differ in length!\n" << std::endl;
             exit(1);
